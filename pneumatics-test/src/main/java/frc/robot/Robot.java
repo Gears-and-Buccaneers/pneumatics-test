@@ -1,33 +1,21 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+/*Jonah Lefkoff--2018/19 season
+ *Pnematics testing code
+*/
 
 package frc.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
+
 public class Robot extends IterativeRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
   Compressor compressor;
   DoubleSolenoid solenoid1;
+  Joystick pad, stick;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -35,11 +23,10 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.addDefault("Default Auto", kDefaultAuto);
-    m_chooser.addObject("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
     compressor = new Compressor(0);
     solenoid1 = new DoubleSolenoid(0,1);
+    pad = new Joystick(0);
+    stick = new Joystick(2);
   }
 
   /**
@@ -54,23 +41,9 @@ public class Robot extends IterativeRobot {
   public void robotPeriodic() {
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
-   * chooser code works with the Java SmartDashboard. If you prefer the
-   * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-   * getString line to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional comparisons to
-   * the switch structure below with additional strings. If using the
-   * SendableChooser make sure to add them to the chooser code above as well.
-   */
+ 
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // autoSelected = SmartDashboard.getString("Auto Selector",
-    // defaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
   }
 
   /**
@@ -78,15 +51,6 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
   }
 
   /**
@@ -101,13 +65,30 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putBoolean("pressure switch triggered?: ", pressureSwitch);
     SmartDashboard.putNumber("compressor current draw: ", current);
     
-    solenoid1.set(DoubleSolenoid.Value.kOff);
-    Timer.delay(1);
-    solenoid1.set(DoubleSolenoid.Value.kForward);
-    Timer.delay(3);
-    solenoid1.set(DoubleSolenoid.Value.kReverse);
-    Timer.delay(2);
-    solenoid1.set(DoubleSolenoid.Value.kOff);
+    // solenoid1.set(DoubleSolenoid.Value.kOff);
+    // Timer.delay(1);
+    // solenoid1.set(DoubleSolenoid.Value.kForward);
+    // Timer.delay(3);
+    // solenoid1.set(DoubleSolenoid.Value.kReverse);
+    // Timer.delay(2);
+    // solenoid1.set(DoubleSolenoid.Value.kOff);
+
+    boolean in = pad.getRawButton(5);
+    boolean out = pad.getRawButton(6);
+
+    if(in){
+      solenoid1.set(DoubleSolenoid.Value.kForward);
+    }
+    else{
+      solenoid1.set(DoubleSolenoid.Value.kOff);
+    }
+    if(out){
+      solenoid1.set(DoubleSolenoid.Value.kReverse);
+    }
+    else{
+      solenoid1.set(DoubleSolenoid.Value.kOff);
+    }
+
   }
 
   /**
