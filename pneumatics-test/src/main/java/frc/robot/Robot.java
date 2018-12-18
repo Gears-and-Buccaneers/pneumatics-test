@@ -10,6 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +26,8 @@ public class Robot extends IterativeRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  Compressor compressor;
+  DoubleSolenoid solenoid1;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -33,6 +38,8 @@ public class Robot extends IterativeRobot {
     m_chooser.addDefault("Default Auto", kDefaultAuto);
     m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    compressor = new Compressor(0);
+    solenoid1 = new DoubleSolenoid(0,1);
   }
 
   /**
@@ -87,6 +94,20 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void teleopPeriodic() {
+    boolean enabled = compressor.enabled();
+    boolean pressureSwitch = compressor.getPressureSwitchValue();
+    double current = compressor.getCompressorCurrent();
+    SmartDashboard.putBoolean("compressor on: ", enabled);
+    SmartDashboard.putBoolean("pressure switch triggered?: ", pressureSwitch);
+    SmartDashboard.putNumber("compressor current draw: ", current);
+    
+    solenoid1.set(DoubleSolenoid.Value.kOff);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kForward);
+    Timer.delay(3);
+    solenoid1.set(DoubleSolenoid.Value.kReverse);
+    Timer.delay(2);
+    solenoid1.set(DoubleSolenoid.Value.kOff);
   }
 
   /**
