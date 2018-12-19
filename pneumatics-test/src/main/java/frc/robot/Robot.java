@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
   public void robotInit() {
     compressor = new Compressor(0);
     solenoid1 = new DoubleSolenoid(0,1);
-    pad = new Joystick(0);
+    pad = new Joystick(3);
     stick = new Joystick(2);
   }
 
@@ -65,29 +65,30 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putBoolean("pressure switch triggered?: ", pressureSwitch);
     SmartDashboard.putNumber("compressor current draw: ", current);
     
-    // solenoid1.set(DoubleSolenoid.Value.kOff);
-    // Timer.delay(1);
-    // solenoid1.set(DoubleSolenoid.Value.kForward);
-    // Timer.delay(3);
-    // solenoid1.set(DoubleSolenoid.Value.kReverse);
-    // Timer.delay(2);
-    // solenoid1.set(DoubleSolenoid.Value.kOff);
+    Timer.delay(30);
+    solenoid1.set(DoubleSolenoid.Value.kOff);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kForward);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kReverse);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kOff);
 
-    boolean in = pad.getRawButton(5);
-    boolean out = pad.getRawButton(6);
+    // boolean in = pad.getRawButton(5);
+    // boolean out = pad.getRawButton(6);
 
-    if(in){
-      solenoid1.set(DoubleSolenoid.Value.kForward);
-    }
-    else{
-      solenoid1.set(DoubleSolenoid.Value.kOff);
-    }
-    if(out){
-      solenoid1.set(DoubleSolenoid.Value.kReverse);
-    }
-    else{
-      solenoid1.set(DoubleSolenoid.Value.kOff);
-    }
+    // if(in){
+    //   solenoid1.set(DoubleSolenoid.Value.kForward);
+    // }
+    // else{
+    //   solenoid1.set(DoubleSolenoid.Value.kOff);
+    // }
+    // if(out){
+    //   solenoid1.set(DoubleSolenoid.Value.kReverse);
+    // }
+    // else{
+    //   solenoid1.set(DoubleSolenoid.Value.kOff);
+    // }
 
   }
 
