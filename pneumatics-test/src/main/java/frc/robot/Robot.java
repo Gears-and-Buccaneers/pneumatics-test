@@ -10,12 +10,14 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 public class Robot extends IterativeRobot {
   Compressor compressor;
   DoubleSolenoid solenoid1;
-  Joystick pad, stick;
+  Joystick pad;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -25,8 +27,7 @@ public class Robot extends IterativeRobot {
   public void robotInit() {
     compressor = new Compressor(0);
     solenoid1 = new DoubleSolenoid(0,1);
-    pad = new Joystick(3);
-    stick = new Joystick(2);
+    pad = new Joystick(0);
   }
 
   /**
@@ -40,6 +41,20 @@ public class Robot extends IterativeRobot {
   @Override
   public void robotPeriodic() {
   }
+
+  /**
+	 * This function is called once each time the robot enters Disabled mode. You
+	 * can use it to reset any subsystem information you want to clear when the
+	 * robot is disabled.
+	 */
+	@Override
+	public void disabledInit() {
+	}
+
+	@Override
+	public void disabledPeriodic() {
+    compressor = new Compressor(0);
+	}
 
  
   @Override
@@ -74,8 +89,12 @@ public class Robot extends IterativeRobot {
     Timer.delay(1);
     solenoid1.set(DoubleSolenoid.Value.kOff);
 
-    // boolean in = pad.getRawButton(5);
-    // boolean out = pad.getRawButton(6);
+    boolean in = pad.getRawButton(1);
+    boolean out = pad.getRawButton(2);
+
+    SmartDashboard.putBoolean("x pressed", in);
+    SmartDashboard.putBoolean("a pressed", out);
+    
 
     // if(in){
     //   solenoid1.set(DoubleSolenoid.Value.kForward);
