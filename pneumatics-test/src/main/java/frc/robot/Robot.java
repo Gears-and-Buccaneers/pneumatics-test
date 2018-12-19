@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends IterativeRobot {
   Compressor compressor;
   DoubleSolenoid solenoid1;
-  Joystick pad, stick;
+  Joystick pad;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -26,7 +26,6 @@ public class Robot extends IterativeRobot {
     compressor = new Compressor(0);
     solenoid1 = new DoubleSolenoid(0,1);
     pad = new Joystick(0);
-    stick = new Joystick(2);
   }
 
   /**
@@ -73,8 +72,8 @@ public class Robot extends IterativeRobot {
     // Timer.delay(2);
     // solenoid1.set(DoubleSolenoid.Value.kOff);
 
-    boolean in = pad.getRawButton(5);
-    boolean out = pad.getRawButton(6);
+    boolean in = pad.getRawButton(1);
+    boolean out = pad.getRawButton(2);
 
     if(in){
       solenoid1.set(DoubleSolenoid.Value.kForward);
