@@ -93,18 +93,28 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putBoolean("a pressed", out);
     
 
-    if(in){
-      solenoid1.set(DoubleSolenoid.Value.kForward);
-    }
-    else{
-      solenoid1.set(DoubleSolenoid.Value.kOff);
-    }
-    if(out){
+    // if(in){
+    //   solenoid1.set(DoubleSolenoid.Value.kForward);
+    // }
+    // else{
+    //   solenoid1.set(DoubleSolenoid.Value.kOff);
+    // }
+    // if(out){
+    //   solenoid1.set(DoubleSolenoid.Value.kReverse);
+    // }
+    // else{
+    //   solenoid1.set(DoubleSolenoid.Value.kOff);
+    // }
+
+      
+    
+    solenoid1.set(DoubleSolenoid.Value.kForward);
+      Timer.delay(2.5);
       solenoid1.set(DoubleSolenoid.Value.kReverse);
-    }
-    else{
+      Timer.delay(2.5);
       solenoid1.set(DoubleSolenoid.Value.kOff);
-    }
+
+
 
   }
 
