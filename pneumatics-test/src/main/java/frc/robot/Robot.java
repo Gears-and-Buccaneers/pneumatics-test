@@ -78,13 +78,14 @@ public class Robot extends IterativeRobot {
     SmartDashboard.putBoolean("pressure switch triggered?: ", pressureSwitch);
     SmartDashboard.putNumber("compressor current draw: ", current);
     
-    // solenoid1.set(DoubleSolenoid.Value.kOff);
-    // Timer.delay(1);
-    // solenoid1.set(DoubleSolenoid.Value.kForward);
-    // Timer.delay(3);
-    // solenoid1.set(DoubleSolenoid.Value.kReverse);
-    // Timer.delay(2);
-    // solenoid1.set(DoubleSolenoid.Value.kOff);
+    Timer.delay(30);
+    solenoid1.set(DoubleSolenoid.Value.kOff);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kForward);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kReverse);
+    Timer.delay(1);
+    solenoid1.set(DoubleSolenoid.Value.kOff);
 
     boolean in = pad.getRawButton(1);
     boolean out = pad.getRawButton(2);
@@ -105,16 +106,6 @@ public class Robot extends IterativeRobot {
     // else{
     //   solenoid1.set(DoubleSolenoid.Value.kOff);
     // }
-
-      
-    
-    solenoid1.set(DoubleSolenoid.Value.kForward);
-      Timer.delay(2.5);
-      solenoid1.set(DoubleSolenoid.Value.kReverse);
-      Timer.delay(2.5);
-      solenoid1.set(DoubleSolenoid.Value.kOff);
-
-
 
   }
 
